@@ -29,10 +29,18 @@ public class schedule {
         list = service.getClist();
     }
     @Scheduled(fixedRate = 1000)
-    public void transmit() throws IOException {
+    public void transmit() {
+
         for (SseEmitter e : list) {
-            System.out.println(list.stream().count());
-            e.send("more data coming through");
+            try {
+
+                System.out.println(list.stream().count());
+                e.send("more data coming through");
+            } catch (IOException err) {
+                e.complete();
+                list.remove(e);
+            }
         }
+
     }
 }

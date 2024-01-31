@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ComponentScan("org.controller")
 @ComponentScan("org.service")
 @ComponentScan("org.scheduler")
+@EnableScheduling
 public class Main {
     private static Logger logger = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {

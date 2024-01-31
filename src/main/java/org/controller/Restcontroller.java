@@ -20,10 +20,20 @@ public class Restcontroller {
     @Autowired
     ssePrepare sseService;
     @GetMapping("sse")
-    public SseEmitter handle() throws IOException {
-        SseEmitter e = sseService.createEmitter();
-        e.send("first data");
-        return e;
+    public SseEmitter handle()  {
+
+            SseEmitter e = sseService.createEmitter();
+            try {
+                e.send("first data");
+                return e;
+            }
+            catch(IOException err)
+            {
+                e.complete();
+                sseService.getClist().remove(e);
+                return null;
+            }
+
     }
 
 }
