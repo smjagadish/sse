@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -20,6 +21,7 @@ public class Restcontroller {
     @Autowired
     ssePrepare sseService;
     @GetMapping("sse")
+    @CrossOrigin
     public SseEmitter handle()  {
 
             SseEmitter e = sseService.createEmitter();
