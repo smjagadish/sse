@@ -1,6 +1,7 @@
 package org.scheduler;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import org.service.ssePrepare;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class schedule {
     {
 
     }
-    // avoid below code smell. use constructor injection probably 
+    // avoid below code smell. use constructor injection probably
     @PostConstruct
     void initialize()
     {
@@ -36,11 +37,12 @@ public class schedule {
             try {
 
                 System.out.println(list.stream().count());
-                e.send("more data coming through");
+                e.send(service.getData(e));
             } catch (IOException err) {
                 e.complete();
                 // remove from list as client conn is probably dead
                 list.remove(e);
+                service.updateMap(e);
             }
         }
 
