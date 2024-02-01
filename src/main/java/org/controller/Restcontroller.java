@@ -23,7 +23,7 @@ public class Restcontroller {
     @GetMapping("sse")
     @CrossOrigin
     public SseEmitter handle()  {
-
+            // service returns an sse emitter instance to the client
             SseEmitter e = sseService.createEmitter();
             try {
                 e.send("first data");
@@ -31,6 +31,7 @@ public class Restcontroller {
             }
             catch(IOException err)
             {
+                // if this happens how will the client handle the null return ? is there a better way to do this ?
                 e.complete();
                 sseService.getClist().remove(e);
                 return null;

@@ -23,6 +23,7 @@ public class schedule {
     {
 
     }
+    // avoid below code smell. use constructor injection probably 
     @PostConstruct
     void initialize()
     {
@@ -30,7 +31,7 @@ public class schedule {
     }
     @Scheduled(fixedRate = 1000)
     public void transmit() {
-
+        // since we use cow list , guaranteed to avoid concurrent modif execpetions even if new connections/clients register
         for (SseEmitter e : list) {
             try {
 
@@ -38,6 +39,7 @@ public class schedule {
                 e.send("more data coming through");
             } catch (IOException err) {
                 e.complete();
+                // remove from list as client conn is probably dead
                 list.remove(e);
             }
         }

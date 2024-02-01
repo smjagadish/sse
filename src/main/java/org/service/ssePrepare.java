@@ -9,7 +9,9 @@ public class ssePrepare {
     private CopyOnWriteArrayList<SseEmitter> clist = new CopyOnWriteArrayList<>();
     public SseEmitter createEmitter()
     {
+        // create a unique emitter instance per connection/domain
         SseEmitter emitter = new SseEmitter(Long.MAX_VALUE);
+        // add this to a list to send events at a fixed interval
         clist.add(emitter);
         return emitter;
     }
