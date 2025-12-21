@@ -97,7 +97,7 @@ jobs:
       shell: bash
       run: |
         mvn clean compile -B
-        exit 1
+        
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4
