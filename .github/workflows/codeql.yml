@@ -44,7 +44,7 @@ jobs:
       matrix:
         include:
         - language: java-kotlin
-          build-mode: none # This mode only analyzes Java. Set this to 'autobuild' or 'manual' to analyze Kotlin too.
+          build-mode: manual # This mode only analyzes Java. Set this to 'autobuild' or 'manual' to analyze Kotlin too.
         # CodeQL supports the following values keywords for 'language': 'actions', 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'rust', 'swift'
         # Use `c-cpp` to analyze code written in C, C++ or both
         # Use 'java-kotlin' to analyze code written in Java, Kotlin or both
@@ -63,9 +63,19 @@ jobs:
     # - name: Setup runtime (example)
     #   uses: actions/setup-example@v1
 
+    
+    - name: Set up JDK 11  # Java runtime
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    
+    - name: Build with Maven
+      run: mvn clean compile -B
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v4
+    
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
