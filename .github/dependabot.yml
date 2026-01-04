@@ -16,4 +16,4 @@ updates:
     labels:
       - "dependencies"
       - "maven"
-      target-branch: "main"
+    target-branch: "main"
